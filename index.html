@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>.NET 6, ASP.NET Core i inny styl programowania</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,900&amp;subset=latin-ext" rel="stylesheet" />
+    <!-- Shower Theme -->
+    <link rel="stylesheet" href="vendors/shower-ribbon/styles/screen-16x9.css" />
+    <link rel="stylesheet" href="vendors/shower-CezaryWalenciuk/styles/main.css" />
+    <!-- Prism.js -->
+    <link rel="stylesheet" href="vendors/prism/prism-my.css" />
+    <link rel="stylesheet" href="vendors/prism/custom-prism.css" />
+    <link rel="stylesheet" href="codegrid.css" />
+</head>
+<body class="shower list">
+    <header class="caption">
+        <h1>.NET 6, ASP.NET Core i inny styl programowania</h1>
+        <p></p>
+    </header>
+    <section class="slide front-page">
+
+        <div class="details">
+            <!-- 1. Avatar -->
+            <h2>Cezary Walenciuk</h2>
+            <!-- 3. Presentation title -->
+            <h2 class="bigbig"><strong style="font-size: 35px;  line-height: 1.3;">
+
+                    <span class="titlec1">.NET 6, ASP.NET Core</span>
+                    <br />
+                    <span class="titlec5">i inny styl programowania</span>
+                    <span class="titlec3"></span></strong></h2>
+            <!-- 5. Contact the speaker -->
+            <h2><a href="https://twitter.com/WalenciukC">@walenciukC</a></h2>
+        </div>
+        <div>
+            <!-- 2. Speaker -->
+        </div>
+        <div class="imag">
+            <img src="images/my-avatar.jpg" alt="Speaker">
+        </div>
+    </section>
+    <!-- <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/1.png" alt="blog">
+            <figcaption class="white">CW</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/2.png" alt="blog">
+            <figcaption class="white">CW</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/3.png" alt="blog">
+            <figcaption class="white">CW</figcaption>
+        </figure>
+    </section> -->
+    <section class="slide creamPP orangetext">
+        <span class="shout colors" ><span>What is new ?<br />🤔
+        </span></span>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/Faster.jfif" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/benchmark-01.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">BenchmarkRunner</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        class Program
+                        {
+                            static void Main(string[] args)
+                            {
+                                var results = BenchmarkRunner.Run&lt;IsEvenBenchmark&gt;();
+                                Console.ReadKey();
+                            }
+                        }
+                        
+                        [MemoryDiagnoser]
+                        [SimpleJob(RuntimeMoniker.Net60)]
+                        [SimpleJob(RuntimeMoniker.Net472)]
+                        public class IsEvenBenchmark
+                        {
+                            [Benchmark]
+                            [Arguments(42)]
+                            public bool IsEven(int i)
+                            {
+                                return i % 2 == 0;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide black" >
+        <figure>
+            <img class="cover" src="pictures/benchmark-02.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide black"  >
+        <figure>
+            <img class="cover" src="pictures/YT-02_benchmark.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" >
+            <span>New classes and methods in .NET 6<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ArgumentNullException Old code</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 35px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 35px !important;">
+                        void Example1(string id)
+                        {
+                            if (id is null)
+                            {
+                                throw new ArgumentNullException(nameof(id));
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ArgumentNullException.ThrowIfNull</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 41px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 41px !important;">
+                        void Example2(string id)
+                        {
+                            ArgumentNullException.ThrowIfNull(id);
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ProcessId and ProcessPath in .NET 2-5</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 38px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 38px !important;">
+                        Process process  = Process.GetCurrentProcess();
+
+                        string path = process.MainModule.FileName;
+                        int id = process.Id;
+
+                        Console.WriteLine(path);
+                        Console.WriteLine(id);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ProcessId and ProcessPath in .NET 6</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 43px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 43px !important;">
+                        string path2 = Environment.ProcessPath;
+                        int id2 = Environment.ProcessId;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Cryptographically Secure Pseudorandom Number Generator (CSPNG)</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 42px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 42px !important;">
+                        using System.Security.Cryptography;
+                        
+                        //for
+                        //- key generation
+                        //- nonces
+                        //- salts in certain signature schemes
+                        var random = RandomNumberGenerator.
+                            GetInt32(1, 1000000);
+
+                        var bytes = RandomNumberGenerator.
+                            GetBytes(255);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Waits for the next tick of the timer or for the timer to be stopped</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 35px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 35px !important;">
+                        using PeriodicTimer timer = 
+                            new(TimeSpan.FromSeconds(2));
+
+                        while (await timer.WaitForNextTickAsync())
+                        {
+                            Console.WriteLine(DateTime.UtcNow.Second);
+                        }
+                        
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">NativeMemory</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 35px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 35px !important;">
+                        unsafe
+                        {
+                            byte* buffer = (byte*)NativeMemory.Alloc(255);
+                            NativeMemory.Free(buffer);
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP orangetext">
+        <span class="shout colors" ><span>PriorityQueue<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Waits for the next tick of the timer or for the timer to be stopped</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 30px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 30px !important;">
+                        PriorityQueue<string, int> queue = new PriorityQueue<string, int>();
+
+                        queue.Enqueue("A", 0);
+                        queue.Enqueue("B", 3);
+                        queue.Enqueue("C", 2);
+                        queue.Enqueue("D", 1);
+
+                        while (queue.TryDequeue(out string item, out int priority))
+                        {
+                            Console.WriteLine($"Popped Item : {item}. " +
+                                $"Priority Was : {priority}");
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide black"  >
+        <figure>
+            <img class="cover" src="pictures/PriorityQueue.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Waits for the next tick of the timer or for the timer to be stopped</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        PriorityQueue&lt;string, int&gt; queue = new PriorityQueue&lt;string, int&gt;();
+
+                        queue.Enqueue(&quot;A&quot;, 0);
+                        queue.Enqueue(&quot;B&quot;, 3);
+                        queue.Enqueue(&quot;C&quot;, 2);
+                        queue.Enqueue(&quot;D&quot;, 1);
+                        queue.Enqueue(&quot;E&quot;, 0);
+                        queue.Enqueue(&quot;F&quot;, 1);
+                        
+                        while (queue.TryDequeue(out string item, out int priority))
+                        {
+                            Console.WriteLine($&quot;Popped Item : {item}. &quot; +
+                                $&quot;Priority Was : {priority}&quot;);
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide black"  >
+        <figure>
+            <img class="cover" src="pictures/PriorityQueue2.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">DateOnly and TimeOnly</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 49px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 49px !important;">
+                        var dateOnly = new DateOnly
+                            (2021, 8, 20);
+                    
+                        var timeOnly = new TimeOnly
+                            (08, 43, 57);
+                    
+                        DateTime dateTime = dateOnly.
+                            ToDateTime(timeOnly);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">BitOperations</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 38px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 38px !important;">
+                        uint number = 235;
+
+                        if (!BitOperations.IsPow2(235))
+                        {
+                            number = 
+                            BitOperations.RoundUpToPowerOf2(number);
+                        }
+                        
+                        Console.WriteLine(number);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Method EnsureCapacity</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 28px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 28px !important;">
+
+                        var numbers = new List&lt;int&gt; { 1, 2 };
+                        Console.WriteLine(numbers.Capacity &lt; 100);
+                        
+                        numbers.EnsureCapacity(100);
+                        
+                        Console.WriteLine(numbers.Count == 2);
+                        Console.WriteLine(numbers.Capacity == 100);
+                        
+                        numbers.EnsureCapacity(50);
+                        Console.WriteLine(numbers.Capacity == 100);
+                        
+                        for (int i = numbers.Count; i &lt; 100; i++)
+                        {
+                            numbers.Add(i);
+                        }
+                        
+                        Console.WriteLine(numbers.Count == 100);
+                        Console.WriteLine(numbers.Capacity == 100);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">list.Chunk</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 42px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 42px !important;">
+                        var list = Enumerable.Range(1, 100);
+
+                        foreach (var chunk in list.Chunk(10))
+                        {
+                            Console.WriteLine(&quot;This next chunk&quot;);
+                            foreach (var item in chunk)
+                            {
+                                Console.WriteLine(item);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" >
+            <span>What new in LINQ ?<br />
+        </span></span>
+    </section>
+    <section class="slide creamPP orangetext">
+        <span class="shout colors" ><span>MaxBy,MinBy,
+            DistinctBy,UnionBy,IntersectBy,ExceptBy<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MaxBy i MinBy</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 35px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 35px !important;">
+
+                        var products1 = new[] {
+                            (Name: &quot;Q&quot;, Price: 17),
+                            (Name: &quot;W&quot;, Price: 100),
+                            (Name: &quot;E&quot;, Price: 70),
+                            (Name: &quot;Y&quot;, Price: 17),
+                         };
+                         var products2 = new[] {
+                            (Name: &quot;R&quot;, Price: 17),
+                            (Name: &quot;T&quot;, Price: 12), };
+                         
+                         var b1 = products1.MaxBy(p =&gt; p.Price)
+                             .Name == &quot;W&quot;;
+                         var b2 = products1.MinBy(p =&gt; p.Price)
+                             .Name == &quot;Q&quot;;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP orangetext">
+        <span class="shout colors" ><span>TryGetNonEnumeratedCount<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">TryGetNonEnumeratedCount</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 34px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 34px !important;">
+                        IEnumerable&lt;int&gt; seq1 = new[] { 0, 1, 2, 3, 4 };
+
+                        seq1.TryGetNonEnumeratedCount(out int count1);
+                        Console.WriteLine(count1 == 5);
+                        
+                        IEnumerable&lt;int&gt; seq2 = new
+                            BetterCollectionBeacuseItsMine
+                            &lt;int&gt;();
+                        
+                        var result =
+                            seq2.TryGetNonEnumeratedCount(out int count2);
+                        Console.WriteLine(result);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">FirstOrDefault with default</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 44px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 44px !important;">
+                        var arr2 = new[] { 0, 2, 4, 6, 8, 10 };
+
+                        var c1 = arr2.FirstOrDefault
+                            (x =&gt; x &gt; 11) == 0;
+                        
+                        var c2 = arr2.FirstOrDefault
+                            (x =&gt; x &gt; 11, -1) == -1;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">LINQ supports RANGE</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 44px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 44px !important;">
+                        var arr = new[] { 0, 1, 2, 3, 4, 5 };
+
+                        var a1 = arr.ElementAt(^2) == 4;
+                        
+                        var a2 = arr.ElementAtOrDefault
+                            (^10) == default;
+                        
+                        var a3 = arr.Take(^2..).
+                            SequenceEqual(new[] { 4, 5 });
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" >
+            <span>What new in async ?<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">WaitAsync</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 30px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 30px !important;">
+                        await ExampleAsync();
+                        Console.Read();
+                        
+                        static async Task&lt;int&gt; ExampleAsync()
+                        {
+                            var operation = SomeLongRunningOperationAsync();
+                        
+                            return await operation.WaitAsync
+                                (TimeSpan.FromSeconds(3));
+                        }
+                        
+                        static async Task&lt;int&gt; SomeLongRunningOperationAsync()
+                        {
+                            await Task.Delay(5000);
+                            return 1;
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Parallel.ForEachAsync</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        static async Task Example2Async()
+                        {
+                            var urlsToDownload = new[]
+                            {
+                                        &quot;https://cezarywalenciuk.pl/&quot;,
+                                        &quot;https://twitter.com/WalenciukC&quot;,
+                                    };
+                        
+                            var client = new HttpClient();
+                        
+                            await Parallel.ForEachAsync(urlsToDownload,
+                                async (url, token) =&gt;
+                                {
+                                    var response = await client.GetAsync(url);
+                        
+                                    if (response.IsSuccessStatusCode)
+                                    {
+                                        Console.WriteLine
+                                        (await response.Content.ReadAsStringAsync());
+                                    }
+                                });
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" ><span>What new in <br />System.Text.Json ?
+        </span></span>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" ><span>Write me in chat if you like <br />System.Text.Json ?<br />✍️
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">JsonPropertyOrder</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+
+                        public class Game
+                        {
+                            [JsonPropertyOrder(1)]
+                            public int Year { get; set; }
+                        
+                            public string Name { get; set; } // 0
+                        
+                            //serialize after Year
+                            [JsonPropertyOrder(2)] 
+                            public string Company { get; set; }
+                        
+                            // serialize before other properties
+                            [JsonPropertyOrder(-1)] 
+                            public int Id { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">JsonPropertyOrder</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 31px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 31px !important;">
+                        Game game = new()
+                        {
+                            Company = "Konami",
+                            Name = "Silent Hill",
+                            Id = 564,
+                            Year = 1999
+                        };
+
+                        JsonSerializerOptions options =
+                            new () { WriteIndented = true};
+
+                        string json = JsonSerializer
+                        .Serialize(game,options);
+
+                        Console.WriteLine(json);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide black" >
+        <figure>
+            <img class="cover" src="pictures/JSONOrder.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" ><span>JsonNode,JsonObject,JNode<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">JsonNode and jNode</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        JsonNode jNode = JsonNode.Parse
+                        (&quot;{\&quot;array\&quot;:[1,6,7],\&quot;name\&quot;:\&quot;Cezary\&quot;}&quot;);
+                                
+                        string name = (string)jNode[&quot;name&quot;];
+                        Console.WriteLine(name);
+                                
+                        string name1 = jNode[&quot;name&quot;]
+                        .GetValue&lt;string&gt;();
+                                
+                        int number = jNode[&quot;array&quot;][2]
+                        .GetValue&lt;int&gt;();
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">JsonObject</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        var jObject = new JsonObject()
+                        {
+                            ["name"] = "Konrad",
+                            ["array"] = new JsonArray(2, 3, 4, 5)
+                        };
+            
+                        string json = jObject.ToJsonString();
+                        Console.WriteLine(json);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">IJsonOnDeserialized, IJsonOnDeserializing, IJsonOnSerializing, IJsonOnSerialized</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class TShirt : IJsonOnDeserialized, 
+                        IJsonOnDeserializing,
+                        IJsonOnSerializing,
+                        IJsonOnSerialized
+                        {
+                            public void OnDeserialized()
+                            { }
+                        
+                            public void OnDeserializing()
+                            { Validate(); }
+                        
+                            public void OnSerialized()
+                            { }
+                            public void OnSerializing()
+                            { Validate(); }
+                        
+                            public string Color { get; set; }
+                            private void Validate()
+                            {
+                                if (Color is null)
+                                    throw new InvalidOperationException
+                                        ($&quot;{nameof(Color)} Can not be null&quot;);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors orangetext" ><span>NET 6, System.Text.Json supports 'IAsyncEnumerable'<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">NET 6, System.Text.Json supports 'IAsyncEnumerable'</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        public static async IAsyncEnumerable&lt;int&gt; GetNumbersAsync()
+                        {
+                            for (int i = 0; i &lt; 5; i++)
+                            {
+                                await Task.Delay(2000);
+                                yield return i;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">NET 6, System.Text.Json supports 'IAsyncEnumerable' 2</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        JsonSerializerOptions options = new()
+                        { WriteIndented = true };
+            
+                        using Stream stream = Console.OpenStandardOutput();
+            
+                        var data = new { Number = GetNumbersAsync() };
+            
+                        await JsonSerializer.SerializeAsync(stream, data, options);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide black" >
+        <figure>
+            <img class="cover" src="pictures/JSON-01.gif" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+
+
+
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>NET 6, System.Text.Json supports Streams <br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">NET 6, System.Text.Json supports Streams</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        public class ToRemember
+                        {
+                            public string Conference { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">NET 6, System.Text.Json supports Streams</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        JsonSerializerOptions options = new()
+                        { WriteIndented = true };
+                        
+                        using Stream outputStream = Console.OpenStandardOutput();
+                        
+                        ToRemember to = new() { Conference = &quot;5Developers&quot; };
+                        
+                        JsonSerializer.Serialize&lt;ToRemember&gt;(outputStream
+                        ,to,options);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">NET 6, System.Text.Json supports Streams</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        string json = &quot;{\&quot;Conference\&quot;:\&quot;4Developers\&quot;}&quot;;
+
+                        byte[] bytes = Encoding.UTF8.GetBytes(json);
+                        
+                        using MemoryStream ms = new MemoryStream();
+                        
+                        ToRemember toRemember =
+                            JsonSerializer.Deserialize&lt;ToRemember&gt;(ms);
+                        
+                        Console.WriteLine(toRemember.Conference);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" >
+            <span>What is the new style of programming in C# 10?<br />
+        </span></span>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" >
+            <span>Minimal applications<br />
+        </span></span>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" ><span>Changes for creating 
+            minimal applications<br />
+        </span></span>
+    </section>
+    <section class="slide creamGG fullscreen " >
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/Icon_min.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class=" bold">Why Minimal applications in .NET</li>
+                    <ol class="nonumbers">
+                        <li class="next">Easy to show your code on Twitter or Youtube</li>
+                        <li class="next">C# looks like NodeJs, Go, Python</li>
+                        <li class="next">Boilerplate code is removed</li>
+                        <li class="next">For new programmers</li> 
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamGG fullscreen " >
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/Icon_min.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class=" bold">Why Minimal applications in .NET</li>
+                    <ol class="nonumbers">
+                        <li class="next">Maybe in the future this will be great for interactive notebooks (Jupyter Notebooks)</li>
+                        <li class="next">Good for source generators</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" ><span>File-Scoped Namespaces<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG "> 
+                <h2 class="headerCODE GG ">File-Scoped Namespaces</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        namespace ViewerApp.Models
+                        {
+                            public class Viewer
+                            {
+                                public string? FirstName { get; set; }
+                                public string? LastName { get; set; }
+                                public string? StreetAddress { get; set; }
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG "> 
+                <h2 class="headerCODE GG ">File-Scoped Namespaces 2</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        namespace ViewerApp.Models;
+
+                        public class Viewer2
+                        {
+                            public string? FirstName { get; set; }
+                            public string? LastName { get; set; }
+                            public string? StreetAddress { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/FileScopedNamespaces.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/FileScopedNamespaces-01.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/FileScopedNamespaces-02.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/FileScopedNamespaces-03.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/FileScopedNamespaces-04.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" ><span>Implicit global usings<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG "> 
+                <h2 class="headerCODE GG ">.NET 5 without implicit usings</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 38px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 38px !important;">
+                        using System;
+                        using System.Collections.Generic;
+                        using System.Threading.Tasks;
+                        
+                        Console.WriteLine(&quot;Daj pozytwna ocene&quot;);
+                        await Task.Delay(2000);
+                        
+                        List&lt;string&gt; list = new List&lt;string&gt;();
+                        list.Add(&quot;Tej prelekcj&quot;);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG "> 
+                <h2 class="headerCODE GG ">Turning on Implicit usings</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 38px;overflow: hidden;  " class="language-xml">
+                    <code style="line-height: 38px !important;">
+                        &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+                            &lt;PropertyGroup&gt;
+                            &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+                            &lt;TargetFramework&gt;net6.0&lt;/TargetFramework&gt;
+                            &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+                            &lt;Nullable&gt;enable&lt;/Nullable&gt;
+                            &lt;/PropertyGroup&gt;
+                        
+                        &lt;/Project&gt;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">.NET 5 without implicit usings</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 38px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 38px !important;">
+                        //using System;
+                        //using System.Collections.Generic;
+                        //using System.Threading.Tasks;
+                        
+                        Console.WriteLine(&quot;Daj pozytwna ocene&quot;);
+                        await Task.Delay(2000);
+                        
+                        List&lt;string&gt; list = new List&lt;string&gt;();
+                        list.Add(&quot;Tej prelekcj&quot;);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color: black;" >
+        <figure>
+            <img class="cover" src="pictures/GlobalUsings.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">ConsoleAppNET6CSharp10.GlobalUsings.g.cs</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 34px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 34px !important;">
+                        // &lt;auto-generated/&gt;
+                        global using global::System;
+                        global using global::System.Collections.Generic;
+                        global using global::System.IO;
+                        global using global::System.Linq;
+                        global using global::System.Net.Http;
+                        global using global::System.Threading;
+                        global using global::System.Threading.Tasks;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">For web application</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        // &lt;autogenerated /&gt;
+                        global using global::System;
+                        global using global::System.Collections.Generic;
+                        global using global::System.IO;
+                        global using global::System.Linq;
+                        global using global::System.Net.Http;
+                        global using global::System.Threading;
+                        global using global::System.Threading.Tasks;
+                        global using global::System.Net.Http.Json;
+                        global using global::Microsoft.AspNetCore.Builder;
+                        global using global::Microsoft.AspNetCore.Hosting;
+                        global using global::Microsoft.AspNetCore.Http;
+                        global using global::Microsoft.AspNetCore.Routing;
+                        global using global::Microsoft.Extensions.Configuration;
+                        global using global::Microsoft.Extensions.DependencyInjection;
+                        global using global::Microsoft.Extensions.Hosting;
+                        global using global::Microsoft.Extensions.Logging;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">For Worker application</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 28px;overflow: hidden;  " class="language-xml">
+                    <code style="line-height: 28px !important;">
+
+
+                        &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+                            &lt;PropertyGroup&gt;
+                            &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+                            &lt;TargetFramework&gt;net6.0&lt;/TargetFramework&gt;
+                            &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+                            &lt;Nullable&gt;enable&lt;/Nullable&gt;
+                            &lt;/PropertyGroup&gt;
+                            &lt;ItemGroup&gt;
+                            &lt;Using Include=&quot;System.Text.Json&quot; /&gt;
+                            &lt;Using Include=&quot;System.Text.Json.Serialization&quot; /&gt;
+                            &lt;Using Remove=&quot;System.IO&quot; /&gt;
+                            &lt;Using Include=&quot;System.Console&quot; Static=&quot;True&quot; /&gt;
+                            &lt;Using Include=&quot;System.DateTime&quot; Alias=&quot;DT&quot; /&gt;
+                            &lt;/ItemGroup&gt;
+                        &lt;/Project&gt;
+                      
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/GlobalUsings2.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">For web application</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 46px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 46px !important;">
+                        global using ViewerApp.Models;
+                        global using static System.Console;
+                        global using DT = System.DateTime;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/GlobalUsings3.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" ><span>Changes in Visual Studio Templates<br />
+        </span></span>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" ><span>Console Template <br />📃
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Console Template for .NET 2-5</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        using System;
+
+                        namespace ConsoleApplication87
+                        {
+                            class Program
+                            {
+                                static void Main(string[] args)
+                                {
+                                    Console.WriteLine("Hello, World!");
+                                }
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Console Template for .NET 6</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 28px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 28px !important;">
+                        // See https://aka.ms/new-console-template for more information
+                        Console.WriteLine("Hello, World!");
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors orangetext" ><span>ASP.NET Web Template<br />📃
+        </span></span>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/asp-01.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey "  >
+        <figure>
+            <img class="cover" src="pictures/asp-02.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/asp-03.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/asp-04.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/asp-05.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/asp-06.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/asp-07.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Program.cs in ASP.NET Empty template for .NET 6</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        var builder = WebApplication.CreateBuilder(args);
+                        var app = builder.Build();
+                        
+                        if (app.Environment.IsDevelopment())
+                        {
+                            app.UseDeveloperExceptionPage();
+                        }
+                        
+                        app.MapGet("/", () => "Hello World!");
+                        
+                        app.Run();
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Program.cs in ASP.NET Web template for .NET 6</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        var builder = WebApplication.CreateBuilder(args);
+
+                        // Add services to the container.
+                        builder.Services.AddControllersWithViews();
+                        
+                        var app = builder.Build();
+                        
+                        // Configure the HTTP request pipeline.
+                        if (app.Environment.IsDevelopment())
+                        {
+                            app.UseDeveloperExceptionPage();
+                        }
+                        else
+                        {
+                            app.UseExceptionHandler("/Home/Error");
+                            // The default HSTS value is 30 days.
+                            app.UseHsts();
+                        }
+                        
+                        app.UseHttpsRedirection();
+                        app.UseStaticFiles();
+                        
+                        app.UseRouting();
+                        
+                        app.UseAuthorization();
+                        
+                        app.MapControllerRoute(
+                            name: "default",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
+                        
+                        app.Run();
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>How easy is to create ASP.NET Core App from nothing<br />
+        </span></span>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/howeasy-01.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/howeasy-02.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/howeasy-03.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/howeasy-04.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/howeasy-05.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/howeasy-06.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">How easy is to create ASP.NET Core App from nothing</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        var builder = WebApplication.CreateBuilder(args);
+
+                        builder.Services.AddSingleton&lt;HelloService&gt;
+                            (new HelloService());
+                        
+                        var app = builder.Build();
+                        
+                        app.MapGet(&quot;/&quot;, () =&gt; &quot;Daj dobrą ocenę&quot;);
+                        app.MapGet(&quot;/hello&quot;, (HttpContext context, HelloService service)
+                             =&gt; service.SayHello(context.Request.Query[&quot;name&quot;]
+                             .ToString()));
+                        
+                        await app.RunAsync();
+                        
+                        public class HelloService
+                        {
+                            public string SayHello(string name)
+                            {
+                                return $&quot;Hello {name}&quot;;
+                            }
+                        }
+                        
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>One file mess ?<br />
+        </span></span>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>Ok, then divide endpoints to static classes<br />🤷‍♂️
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Routes</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        public static class Routes
+                        {
+                            public static IEndpointRouteBuilder UseHelloEndpoint
+                                (this IEndpointRouteBuilder endpoints)
+                            {
+                                endpoints.MapPost(&quot;api/hello&quot;, async context =&gt;
+                                {
+                        
+                                });
+                        
+                                return endpoints;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" style="font-size: 1.5em !important"><span>Why would I divide the endpoints like that into separate
+            definition classes? 
+            <br /><br />
+            It makes the minimal API look almost like the old controller-based approach.</span>
+        </span>
+    </section>
+
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>Minimal APIs maybe would perform much better than controller-based APIs ?<br />😨
+        </span></span>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>Yes, kinda<br />😅
+        </span></span>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>Show me better solution for Minimal APIs ?<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">EndPointDefinitionExtension and IEndpointDefinition</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 27px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 27px !important;">
+                        public class EndpointDefinition : IEndpointDefinition
+                        {
+                            public void DefineEndpoints(WebApplication app)
+                            {
+                                app.MapPost(&quot;api/hello&quot;, async context =&gt;
+                                {
+                        
+                                });
+                            }
+                        
+                            public void DefineServices(IServiceCollection services)
+                            {
+                                
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">EndPointDefinitionExtension and IEndpointDefinition 2</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        public interface IEndpointDefinition
+                        {
+                            void DefineServices(IServiceCollection services);
+                        
+                            void DefineEndpoints(WebApplication app);
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">EndPointDefinitionExtension and IEndpointDefinition 3</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        public static class EndPointDefinitionExtension
+                        {
+                            public static void AddEndpointDefinitions(
+                                this IServiceCollection services,params Type[] scanMarkers)
+                            {
+                                var endpoints = new List&lt;IEndpointDefinition&gt;();
+                        
+                                foreach (var scanMarker in scanMarkers)
+                                {
+                                    endpoints.AddRange(
+                                        scanMarker.Assembly.ExportedTypes
+                                        .Where(x =&gt; typeof(IEndpointDefinition)
+                                        .IsAssignableFrom(x) &amp;&amp; (!x.IsInterface &amp;&amp; !x.IsAbstract))
+                                        .Select(Activator.CreateInstance)
+                                        .Cast&lt;IEndpointDefinition&gt;()
+                                    );
+                                }
+                        
+                                foreach (var endpoint in endpoints)
+                                {
+                                    endpoint.DefineServices(services);
+                                }
+                        
+                                services.AddSingleton
+                                    (endpoints as IReadOnlyCollection&lt;IEndpointDefinition&gt;);
+                            }
+                        
+                            public static void UseEndpointDefinitions(this WebApplication app)
+                            {
+                                var defs = app.Services.
+                                GetRequiredService&lt;IReadOnlyCollection&lt;IEndpointDefinition&gt;&gt;();
+                        
+                                foreach (var def in defs)
+                                {
+                                    def.DefineEndpoints(app);
+                                }
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Program.cs</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        var builder = WebApplication.CreateBuilder(args);
+
+                        builder.Services.AddEndpointDefinitions
+                        (typeof(EndpointDefinition));
+
+                        var app = builder.Build();
+                        
+                        app.UseEndpointDefinitions();
+                        app.Run();
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>Another example<br />😉
+        </span></span>
+    </section>
+    <section class="slide creamGG orangetext">
+        <span class="shout colors" ><span>How easy is to create SignalR from nothing<br />
+        </span></span>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/signalR-01.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Program.cs Server SignalR App</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 24px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 24px !important;">
+                        var builder = WebApplication.CreateBuilder(args);
+
+                        builder.Services.AddSignalR();
+                        builder.Services.AddCors(options =&gt;
+                        {
+                            options.AddPolicy(&quot;CorsPolicy&quot;, builder =&gt; builder
+                                .WithOrigins(&quot;http://localhost:56675&quot;)
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials());
+                        });
+                        
+                        var app = builder.Build();
+                        
+                        app.UseCors(&quot;CorsPolicy&quot;);
+                        app.MapHub&lt;MyHub&gt;(&quot;/chat&quot;);
+                        app.MapHub&lt;ChartHub&gt;(&quot;/chart&quot;);
+                        app.Run();
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">MyHub</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 20px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 20px !important;">
+                        public class MyHub : Hub
+                        {
+                            public async IAsyncEnumerable&lt;string&gt; Streaming
+                            (CancellationToken stoppingToken)
+                            {
+                                while (!stoppingToken.IsCancellationRequested)
+                                {
+                                    if (_random.Next(0, 10) &lt; 5)
+                                        yield return DateTime.UtcNow.ToString(&quot;hh:mm:ss&quot;);
+                        
+                                    try
+                                    {
+                                        await Task.Delay(1000,stoppingToken);
+                                    }
+                                    catch (OperationCanceledException)
+                                    {
+                                        yield break;
+                                    }
+                                }
+                            }
+                        
+                            private Random _random = new Random();
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/signalR-02.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide visgrey"  >
+        <figure>
+            <img class="cover" src="pictures/signalR-03.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle GG"> 
+                <h2 class="headerCODE GG">Program.cs Client SignalR App</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        using Microsoft.AspNetCore.SignalR.Client;
+
+                        var uri = &quot;http://localhost:5000/chat&quot;;
+                        
+                        await using var connection = new HubConnectionBuilder()
+                            .WithUrl(uri)
+                            .Build();
+                        
+                        
+                        await connection.StartAsync();
+                        
+                        
+                        await foreach (var item in
+                            connection.StreamAsync&lt;string&gt;(&quot;Streaming&quot;))
+                        {
+                            Console.WriteLine(item);
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide black"  >
+        <figure>
+            <img class="cover" src="pictures/YT-01.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG fullscreen " >
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/Icon_min.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class=" bold">Minimal applications in ASP.NET Core</li>
+                    <ol class="nonumbers">
+                        <li class="next">Can be faster than than MVC approach</li>
+                        <li class="next">Good for small REST API project</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section> 
+    <section class="slide creamSea orangetext">
+        <span class="shout colors" ><span>Other changes in C# 10<br />
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">In C# 10 you can also use 'with' expression with struct types</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        Drink drink = new () { Fat = 20, TotalVolume= 200};
+
+                        Drink green = drink with { Fat = 40};
+                        
+                        public struct Drink
+                        {
+                            public int Fat { get; set; }
+                            public int TotalVolume { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">If the struct has field initializers, the compiler will synthesize a public parameterless constructor</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        public struct Drink
+                        {
+                            public int Fat { get; set; } = 1;
+                            public int TotalVolume { get; set; } = 2;
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Record struct</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        record struct DrinkRecord(int fat, int totalVolume);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Explicit return types in lambdas</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        var a1 = string () =&gt; string.Empty;
+
+                        var a2 = int () =&gt; int.MaxValue;
+
+                        var a3 = static void () =&gt; { };
+
+                        var a4 = string? () => null;
+                        
+                        public static void Example&lt;T&gt;()
+                        {
+                            var a5 = T () =&gt; default;
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MyAttribute in lambdas</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        Func&lt;int&gt; f1 = [MyAttribute] () =&gt; { return 0; };
+                        Func&lt;int&gt; f2 = [return: MyAttribute] () =&gt; { return 0; };
+                        Func&lt;int,int&gt; f3 = ([MyAttribute] x)=&gt; { return x; };
+                        
+                        class MyAttribute : Attribute
+                        {
+                        
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">C# 10 can do both assignment and declaration in the same deconstruction</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        int a;int b;
+                        (a, int r, int g,b) = (255, 100, 0, 150);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/GenericAtribbute.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">You can add sealed keyword in override in C# 10</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        public record Game
+                        {
+                            public sealed override string ToString()
+                            {
+                                return base.ToString();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">You can reference nested properties or fields within a proper pattern</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        var speech = new { Speaker = new { Name = "C" } };
+
+                        //C# 9
+                        if (speech is { Speaker: { Name :"C"} }) { }
+                        
+                        //C# 10
+                        if (speech is { Speaker.Name: "C"}) { }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Initializing 'const' strings using string interpolation, but the placeholder must also be a 'const' string</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        const string NAME = &quot;MyApplication&quot;;
+                        const string FULLNAME = $&quot;{NAME} 1.20&quot;;
+                        
+                        const double VERSIONP = 1.20;
+                        //const string FULLNAME2 = $&quot;{NAME} {VERSIONP}&quot;;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamSea">
+        <span class="shout colors orangetext" >
+            <span>And now what I promise<br />
+        </span></span>
+    </section>
+    <section class="slide creamSea" >
+    <span class="shout colors orangetext" >
+        <span>Static abstract methods in Interface<br />
+    </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Static abstract methods in Interface. Maybe in .NET 7</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 32px !important;">
+                        public interface ICreatable&lt;TSelf, TArg1, TArg2, TArg3&gt;
+                        where TSelf : ICreatable&lt;TSelf, TArg1, TArg2, TArg3&gt;
+                        {
+                            static abstract TSelf Create(TArg1 arg1,
+                                TArg2 arg2, TArg3 arg3);
+                        }
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Static abstract methods in Interface. Maybe in .NET 7</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class Game : ICreatable&lt;Game, string, string, int&gt;
+                        {
+                            public Game(string name, string desc, int year)
+                            {
+                                Name = name; Description = desc; Year = year;
+                            }
+                        
+                            public string Name { get; set; }
+                            public string Description { get; set; }
+                            public int Year { get; set; }
+                        
+                            public static Game Create
+                                (string name, string desc, int year)
+                            {
+                                return new Game(name, desc, year);
+                            }
+                        }
+
+                        Game.Create("a", "a", 1);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Static abstract methods in Interface. Maybe in .NET 7</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
+                        static T Add&lt;T&gt;(T left, T right) where T : INumber&lt;T&gt;
+                        {
+                            return left + right;
+                        }
+                        
+                        static T ParseInvariant&lt;T&gt;(string s) where T : IParseable&lt;T&gt;
+                        {
+                            return T.Parse(s,
+                                CultureInfo.InvariantCulture);
+                        }
+                        
+                        Console.Write(&quot;First number: &quot;);
+                        var left = ParseInvariant&lt;float&gt;(Console.ReadLine());
+                        
+                        Console.Write(&quot;Second number: &quot;);
+                        var right = ParseInvariant&lt;float&gt;(Console.ReadLine());
+                        
+                        Console.WriteLine($&quot;Result: {Add(left, right)}&quot;);
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamSea" >
+        <span class="shout colors orangetext" >
+            <span>Before I say goodbye...check also Visual Studio 2022<br />
+        </span></span>
+        </section>
+    <section class="slide visgrey" >
+        <figure>
+            <img class="cover" src="pictures/conowego.png" alt="CW">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+
+
+    <!-- <div class="progress"></div> -->
+    <footer class="badge badge-top-left">
+        <a href="#" class="fullscreen">Fullscreen</a>
+    </footer>
+
+    <script src="vendors/gamepad/gamepad.js"></script>
+    <script src="vendors/shower/shower.min.js"></script>
+    <script src="vendors/shower-gamepad/shower.gamepad.js"></script>
+
+    <!-- Prism.js -->
+    <script src="vendors/prism/prism.js"></script>
+    <script src="vendors/prism/custom-prism.js"></script>
+
+</body>
+
+</html>
