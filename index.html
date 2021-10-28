@@ -272,8 +272,8 @@
                 <h2 class="headerCODE PP PP">Waits for the next tick of the timer or for the timer to be stopped</h2>
             </div>
             <div class="PlaceCodeHere ">
-                <pre style="font-size: 30px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 30px !important;">
+                <pre style="font-size: 27px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 27px !important;">
                         PriorityQueue<string, int> queue = new PriorityQueue<string, int>();
 
                         queue.Enqueue("A", 0);
@@ -303,8 +303,8 @@
                 <h2 class="headerCODE PP PP">Waits for the next tick of the timer or for the timer to be stopped</h2>
             </div>
             <div class="PlaceCodeHere ">
-                <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 32px !important;">
+                <pre style="font-size: 27px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 27px !important;">
                         PriorityQueue&lt;string, int&gt; queue = new PriorityQueue&lt;string, int&gt;();
 
                         queue.Enqueue(&quot;A&quot;, 0);
@@ -435,7 +435,7 @@
     </section>
     <section class="slide creamPP orangetext">
         <span class="shout colors" ><span>MaxBy,MinBy,
-            DistinctBy,UnionBy,IntersectBy,ExceptBy<br />
+            DistinctBy,UnionBy,IntersectBy,<br/>ExceptBy<br />
         </span></span>
     </section>
     <section class="slide prism over bhgry">
@@ -585,7 +585,7 @@
                             {
                                         &quot;https://cezarywalenciuk.pl/&quot;,
                                         &quot;https://twitter.com/WalenciukC&quot;,
-                                    };
+                            };
                         
                             var client = new HttpClient();
                         
@@ -776,7 +776,8 @@
             <div class="PlaceCodeHere ">
                 <pre style="font-size: 32px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 32px !important;">
-                        public static async IAsyncEnumerable&lt;int&gt; GetNumbersAsync()
+                        public static async IAsyncEnumerable&lt;int&gt; 
+                            GetNumbersAsync()
                         {
                             for (int i = 0; i &lt; 5; i++)
                             {
@@ -805,7 +806,8 @@
             
                         var data = new { Number = GetNumbersAsync() };
             
-                        await JsonSerializer.SerializeAsync(stream, data, options);
+                        await JsonSerializer.SerializeAsync
+                            (stream, data, options);
                     </code>
                 </pre>
             </div>
@@ -820,7 +822,7 @@
 
 
 
-    <section class="slide creamPP">
+    <section class="slide creamPP orangetext">
         <span class="shout colors" ><span>NET 6, System.Text.Json supports Streams <br />
         </span></span>
     </section>
@@ -1152,7 +1154,7 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle GG"> 
-                <h2 class="headerCODE GG">For Worker application</h2>
+                <h2 class="headerCODE GG">Adding namespaces in project</h2>
             </div>
             <div class="PlaceCodeHere ">
                 <pre style="font-size: 28px;overflow: hidden;  " class="language-xml">
@@ -1189,7 +1191,7 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle GG"> 
-                <h2 class="headerCODE GG">For web application</h2>
+                <h2 class="headerCODE GG">Adding namespaces in code</h2>
             </div>
             <div class="PlaceCodeHere ">
                 <pre style="font-size: 46px;overflow: hidden;  " class="language-csharp">
@@ -1641,7 +1643,7 @@
         </span></span>
     </section>
     <section class="slide creamGG orangetext">
-        <span class="shout colors" ><span>How easy is to create SignalR from nothing<br />
+        <span class="shout colors" ><span>How easy is to create SignalR App from nothing<br />
         </span></span>
     </section>
     <section class="slide visgrey"  >
